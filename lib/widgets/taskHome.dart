@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
+import 'package:uuid/uuid.dart';
 import 'package:dotted_decoration/dotted_decoration.dart';
+
+import "./taskList.dart";
+import "./todoHeading.dart";
+import './addTaskBtn.dart';
+import './date.dart';
+import '../models/task.dart';
 
 class taskHome extends StatefulWidget {
   @override
@@ -8,6 +16,40 @@ class taskHome extends StatefulWidget {
 }
 
 class _taskHomeState extends State<taskHome> {
+  final List<Task> taskList = [
+    Task(
+      taskName: "Wash Shoes",
+      taskPriority: "low",
+      taskDesc: "Wash shoes for school tommorow",
+      taskId: Uuid().v4(),
+      taskDate: DateTime.now(),
+      taskSatus: false,
+    ),
+    Task(
+      taskName: "Buy new mouse",
+      taskPriority: "high",
+      taskDesc: "Wash shoes for school tommorow",
+      taskId: Uuid().v4(),
+      taskDate: DateTime.now(),
+      taskSatus: false,
+    ),
+    Task(
+      taskName: "Sign documents",
+      taskPriority: "high",
+      taskDesc: "Wash shoes for school tommorow",
+      taskId: Uuid().v4(),
+      taskDate: DateTime.now(),
+      taskSatus: false,
+    ),
+    Task(
+      taskName: "fix tap",
+      taskPriority: "medium",
+      taskDesc: "Wash shoes for school tommorow",
+      taskId: Uuid().v4(),
+      taskDate: DateTime.now(),
+      taskSatus: false,
+    )
+  ];
   var date = DateTime.now();
 
   @override
@@ -21,53 +63,7 @@ class _taskHomeState extends State<taskHome> {
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          DateTime.now().day.toString(),
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 35),
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(DateFormat("EEEE").format(DateTime.now())),
-                            Text(DateFormat.yMMM().format(DateTime.now()))
-                          ],
-                        )
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Container(
-                          height: 30,
-                          width: 30,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
-                            color: Theme.of(context).primaryColor,
-                          ),
-                          child: IconButton(
-                            iconSize: 20,
-                            padding: EdgeInsets.all(1),
-                            icon: Icon(
-                              Icons.add,
-                              color: Colors.white,
-                            ),
-                            onPressed: () {},
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(left: 10),
-                          child: Text(
-                            "Add a Task",
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
+                  children: [DateWid(), AddBtn()],
                 ),
                 Container(
                   width: 350,
@@ -76,7 +72,9 @@ class _taskHomeState extends State<taskHome> {
                     shape: Shape.line,
                     linePosition: LinePosition.bottom,
                   ),
-                )
+                ),
+                TodoHead(),
+                TaskList(taskList)
               ],
             ),
           ),
