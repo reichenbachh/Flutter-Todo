@@ -16,7 +16,7 @@ class taskHome extends StatefulWidget {
 }
 
 class _taskHomeState extends State<taskHome> {
-  final List<Task> taskList = [
+  final List<Task> _taskList = [
     Task(
       taskName: "Wash Shoes",
       taskPriority: "low",
@@ -50,7 +50,8 @@ class _taskHomeState extends State<taskHome> {
       taskSatus: false,
     )
   ];
-  var date = DateTime.now();
+  void AddNewTask(String title, String desc) {}
+  // var date = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +64,7 @@ class _taskHomeState extends State<taskHome> {
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [DateWid(), AddBtn()],
+                  children: [DateWid(), AddBtn(context)],
                 ),
                 Container(
                   width: 350,
@@ -74,7 +75,7 @@ class _taskHomeState extends State<taskHome> {
                   ),
                 ),
                 TodoHead(),
-                TaskList(taskList)
+                TaskList(_taskList)
               ],
             ),
           ),

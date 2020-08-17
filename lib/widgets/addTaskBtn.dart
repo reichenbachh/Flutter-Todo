@@ -1,6 +1,17 @@
 import 'package:flutter/material.dart';
+import './todoInput.dart';
 
 class AddBtn extends StatelessWidget {
+  final BuildContext appContext;
+  AddBtn(this.appContext);
+  void _startAddTask(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (_) {
+          return TodoInput();
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -19,7 +30,9 @@ class AddBtn extends StatelessWidget {
               Icons.add,
               color: Colors.white,
             ),
-            onPressed: () {},
+            onPressed: () {
+              _startAddTask(appContext);
+            },
           ),
         ),
         Padding(

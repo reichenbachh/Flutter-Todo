@@ -21,50 +21,64 @@ class TaskList extends StatelessWidget {
   final List<Task> taskList;
   TaskList(this.taskList);
   Widget build(BuildContext context) {
-    return Column(
-      children: taskList.map((task) {
-        return Card(
-          color: getColor(task.taskPriority),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          elevation: 5,
-          child: Padding(
-            padding: EdgeInsets.all(20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      task.taskPriority,
-                      style: TextStyle(
-                        color: Colors.white,
+    return Container(
+      height: 500,
+      child: ListView.builder(
+        itemBuilder: (ctx, index) {
+          return Card(
+            color: getColor(taskList[index].taskPriority),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            elevation: 5,
+            child: Padding(
+              padding: EdgeInsets.all(20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        taskList[index].taskPriority,
+                        style: TextStyle(
+                          color: Theme.of(context).textTheme.bodyText1.color,
+                        ),
                       ),
-                    ),
-                    Text(
-                      task.taskName,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                        fontSize: 25,
+                      Text(
+                        taskList[index].taskName,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).textTheme.bodyText1.color,
+                          fontSize: 25,
+                        ),
                       ),
-                    ),
-                    Text(
-                      task.taskDesc,
-                      style: TextStyle(color: Colors.white),
-                    )
-                  ],
-                ),
-                Radio(
-                  value: false,
-                  activeColor: Colors.white,
-                )
-              ],
+                      Text(
+                        taskList[index].taskDesc,
+                        style: TextStyle(
+                          color: Theme.of(context).textTheme.bodyText1.color,
+                        ),
+                      )
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      IconButton(
+                        icon: Icon(Icons.delete),
+                        onPressed: () {},
+                      ),
+                      Radio(
+                        value: false,
+                        activeColor: Colors.white,
+                      ),
+                    ],
+                  )
+                ],
+              ),
             ),
-          ),
-        );
-      }).toList(),
+          );
+        },
+        itemCount: taskList.length,
+      ),
     );
   }
 }

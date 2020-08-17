@@ -10,10 +10,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.teal,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-        accentColor: Colors.black54,
-      ),
+          primarySwatch: Colors.teal,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+          accentColor: Colors.black54,
+          textTheme: TextTheme(
+            bodyText1: TextStyle(color: Colors.white),
+          )),
       home: taskHome(),
     );
   }
