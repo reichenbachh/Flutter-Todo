@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class TodoInput extends StatefulWidget {
+  final Function addNewTransaction;
+  TodoInput(this.addNewTransaction);
   @override
   _TodoInputState createState() => _TodoInputState();
 }
@@ -13,6 +15,20 @@ class _TodoInputState extends State<TodoInput> {
   final descCtrl = TextEditingController();
 
   priorities lowPriorty = priorities.low;
+
+  void onSubmit() {
+    final titleInput = titleCtrl.text;
+    final descInput = descCtrl.text;
+    final priority = lowPriorty.toString();
+
+    if (titleInput.isEmpty || descInput.isEmpty) {
+      return;
+    }
+
+    widget.addNewTransaction(titleInput, descInput, priority);
+
+    Navigator.of(context).pop();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +125,7 @@ class _TodoInputState extends State<TodoInput> {
                   Padding(
                     padding: EdgeInsets.only(right: 10),
                     child: FlatButton(
-                      onPressed: () {},
+                      onPressed: onSubmit,
                       color: Colors.teal,
                       child: Text(
                         "Add task",

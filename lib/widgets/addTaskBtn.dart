@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import './todoInput.dart';
 
 class AddBtn extends StatelessWidget {
+  final Function removeTask;
+  final Function addNewTask;
   final BuildContext appContext;
-  AddBtn(this.appContext);
+  AddBtn(this.appContext, this.addNewTask, this.removeTask);
   void _startAddTask(BuildContext context) {
     showModalBottomSheet(
         context: context,
         builder: (_) {
-          return TodoInput();
+          return TodoInput(addNewTask);
         });
   }
 

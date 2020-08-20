@@ -50,7 +50,29 @@ class _taskHomeState extends State<taskHome> {
       taskSatus: false,
     )
   ];
-  void AddNewTask(String title, String desc) {}
+  void _addNewTask(String name, String desc, String priority) {
+    final priCon = priority.split(".");
+    final newTask = Task(
+      taskName: name,
+      taskDesc: desc,
+      taskPriority: priCon[1],
+      taskDate: DateTime.now(),
+      taskId: Uuid().v4(),
+      taskSatus: false,
+    );
+
+    setState(() {
+      _taskList.add(newTask);
+    });
+    print(priCon[1].runtimeType);
+    print(newTask.taskName);
+  }
+
+  void _removeTask(String id) {
+    setState(() {
+      _taskList.removeWhere((task) => task.taskId == id);
+    });
+  }
   // var date = DateTime.now();
 
   @override
@@ -62,9 +84,17 @@ class _taskHomeState extends State<taskHome> {
             padding: EdgeInsets.only(top: 20),
             child: Column(
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [DateWid(), AddBtn(context)],
+                Container(
+                  height: (MediaQuery.of(context).size.height -
+                          MediaQuery.of(context).padding.top) *
+                      0.05,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      DateWid(),
+                      AddBtn(context, _addNewTask, _removeTask)
+                    ],
+                  ),
                 ),
                 Container(
                   width: 350,
@@ -74,8 +104,17 @@ class _taskHomeState extends State<taskHome> {
                     linePosition: LinePosition.bottom,
                   ),
                 ),
-                TodoHead(),
-                TaskList(_taskList)
+                Container(
+                  height: (MediaQuery.of(context).size.height -
+                          MediaQuery.of(context).padding.top) *
+                      0.1,
+                  child: TodoHead(),
+                ),
+                Container(
+                    height: (MediaQuery.of(context).size.height -
+                            MediaQuery.of(context).padding.top) *
+                        0.8,
+                    child: TaskList(_taskList, _removeTask))
               ],
             ),
           ),

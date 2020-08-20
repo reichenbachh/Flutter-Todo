@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../models/task.dart';
 
 class TaskList extends StatelessWidget {
+  final Function removeTask;
   Color getColor(pri) {
     var col;
     if (pri == "high") {
@@ -14,15 +15,15 @@ class TaskList extends StatelessWidget {
     if (pri == "low") {
       col = Colors.blue;
     }
+    print(pri);
     return col;
   }
 
   @override
   final List<Task> taskList;
-  TaskList(this.taskList);
+  TaskList(this.taskList, this.removeTask);
   Widget build(BuildContext context) {
     return Container(
-      height: 500,
       child: ListView.builder(
         itemBuilder: (ctx, index) {
           return Card(
@@ -64,7 +65,9 @@ class TaskList extends StatelessWidget {
                     children: [
                       IconButton(
                         icon: Icon(Icons.delete),
-                        onPressed: () {},
+                        onPressed: () {
+                          removeTask(taskList[index].taskId);
+                        },
                       ),
                       Radio(
                         value: false,
